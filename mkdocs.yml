@@ -3,3 +3,5 @@ edit_uri: '/blob/master'
 repo_url: https://github.com/steviebeenz/startjs
 theme:
   name: material
+plugins:
+ - jinja2

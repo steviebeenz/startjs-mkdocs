@@ -7,3 +7,4 @@ plugins:
  - jinja2
 markdown_extensions:
   - admonition
+  - codehilite

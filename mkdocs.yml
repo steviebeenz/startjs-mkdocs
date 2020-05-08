@@ -1,3 +1,4 @@
 site_name: StartJS
+repo_url: https://github.com/steviebeenz/startjs
 theme:
   name: material

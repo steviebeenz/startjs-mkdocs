@@ -714,92 +714,96 @@ Notice: This step requires that you have read our <a href="npm.md">NPM</a> and <
 <p>First off, create a new folder called StartJS_Express.
 Then, open it in Visual Studio Code and complete the "How to Initialize a Folder using Yarn" section of our <a href="npm/yarn.md">Yarn</a> guide.
 Next, run the following commands in the Terminal Feature of Visual Studio Code:</p>
-<pre><code class="bash">yarn add express
-</code></pre>
+<div class="codehilite"><pre><span></span>yarn add express
+</pre></div>
+
 
 <p>This has installed the web server module to your folder. Now you can start on creating a basic Node.js Express Web Server:</p>
 <h2 id="making-the-web-server">Making the Web Server:</h2>
 <p>In this step we will make the web server. Make sure you have your new folder open in Visual Studio Code.
 First off, create a new file called index.js with the following contents:</p>
-<pre><code class="javascript">// this line allows us to use the express.js module
-var express = require(&quot;express&quot;);
+<div class="codehilite"><pre><span></span><span class="c1">// this line allows us to use the express.js module</span>
+<span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;express&quot;</span><span class="p">);</span>
 
-// Add this line so we can serve files from our local
-// directory
-var path = require(&quot;path&quot;);
-var app = express();
+<span class="c1">// Add this line so we can serve files from our local</span>
+<span class="c1">// directory</span>
+<span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
 
-// Add the ability to serve our static files from the public directory
-app.use(express.static(&quot;public&quot;));
+<span class="c1">// Add the ability to serve our static files from the public directory</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="s2">&quot;public&quot;</span><span class="p">));</span>
 
-// Here we serve up our index page
-app.get(&quot;/&quot;, function(req, res) {
-  res.sendFile(path.join(__dirname + &quot;/public/index.html&quot;));
-});
+<span class="c1">// Here we serve up our index page</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s2">&quot;/public/index.html&quot;</span><span class="p">));</span>
+<span class="p">});</span>
 
-var server = app.listen(80, function() {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log(&quot;startjs Demo Server listening at http://%s:%s&quot;, host, port);
-});
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">host</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">address</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;startjs Demo Server listening at http://%s:%s&quot;</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">port</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
 
-</code></pre>
 
 <p>Next, create a new folder called public and add a new file called index.html inside your "public" folder with the following contents:</p>
-<pre><code class="html">
-&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-  &lt;head&gt;
-    &lt;!-- Required meta tags --&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;
+<div class="codehilite"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- Required meta tags --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;</span><span class="p">&gt;</span>
 
-    &lt;!-- Bootstrap CSS --&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css&quot; integrity=&quot;sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh&quot; crossorigin=&quot;anonymous&quot;&gt;
+    <span class="c">&lt;!-- Bootstrap CSS --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
 
-    &lt;title&gt;Hello world!&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Hello world!&lt;/h1&gt;
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Hello world!<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello world!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 
-    &lt;!-- Optional JavaScript --&gt;
-    &lt;!-- jQuery first, then Popper.js, then Bootstrap JS --&gt;
-    &lt;script src=&quot;https://code.jquery.com/jquery-3.4.1.slim.min.js&quot; integrity=&quot;sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js&quot; integrity=&quot;sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js&quot; integrity=&quot;sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
+    <span class="c">&lt;!-- Optional JavaScript --&gt;</span>
+    <span class="c">&lt;!-- jQuery first, then Popper.js, then Bootstrap JS --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://code.jquery.com/jquery-3.4.1.slim.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
 
-</code></pre>
 
 <p>Now, type <a href="http://localhost/">localhost</a> into your web browser. Congrats, you are now serving a website onto your network using Node.JS.</p>
 <p>Now, let's review the code that we have just written:</p>
-<pre><code class="javascript">var express = require(&quot;express&quot;);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;express&quot;</span><span class="p">);</span>
+</pre></div>
+
 
 <p>This line allows you to use the Express web server.</p>
-<pre><code class="javascript">var path = require(&quot;path&quot;); // alllow express to use folders.
-var app = express(); // create the server
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">);</span> <span class="c1">// alllow express to use folders.</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span> <span class="c1">// create the server</span>
+</pre></div>
+
 
 <p>These two lines create the Express web server and allows you to server a file on your Web Server.</p>
-<pre><code class="javascript">app.use(express.static(&quot;public&quot;)); // Tell express to use the Public Folder.
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="s2">&quot;public&quot;</span><span class="p">));</span> <span class="c1">// Tell express to use the Public Folder.</span>
+</pre></div>
+
 
 <p>This line tells Express to use the Public folder to server your website from.</p>
-<pre><code class="javascript">app.get(&quot;/&quot;, function(req, res) {
-  res.sendFile(path.join(__dirname + &quot;/public/index.html&quot;));
-}); // Tells Express where the Homepage is.
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s2">&quot;/public/index.html&quot;</span><span class="p">));</span>
+<span class="p">});</span> <span class="c1">// Tells Express where the Homepage is.</span>
+</pre></div>
+
 
 <p>This line (this is one line, expanded into 3 lines for easier readability) tells Express which file to use as the Homepage.</p>
-<pre><code class="javascript">
-var server = app.listen(80, function() {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log(&quot;startjs Demo Server listening at http://%s:%s&quot;, host, port);
-});
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">host</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">address</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;startjs Demo Server listening at http://%s:%s&quot;</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">port</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
 
 <p>This line (this is one line, expanded into 3 lines for easier readability) starts the server.</p>
 <p>The HTML file is a standard website. Feel free to change it to any HTML code. Just keep it's name as index.html.</p>

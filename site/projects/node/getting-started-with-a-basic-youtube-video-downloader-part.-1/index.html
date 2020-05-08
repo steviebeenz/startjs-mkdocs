@@ -739,117 +739,128 @@
 <p>First Off, Create a New Folder called DownloadYT</p>
 <p>Next, follow our Setting up a Folder from our <a href="../../../npm/yarn/#how-to-initialize-a-folder-using-yarn">Yarn</a> Tutorial.</p>
 <p>Then, run the following in the Visual Studio Code Terminal (in your new folder)</p>
-<pre><code class="bash">yarn add ytdl-core
+<div class="codehilite"><pre><span></span>yarn add ytdl-core
 yarn add express
 yarn add open
-</code></pre>
+</pre></div>
+
 
 <p>Next, create a new file called index.js and add the following to it:</p>
-<pre><code class="javascript">
-// Add all the libraries
-const fs = require(&quot;fs&quot;);
-const open = require(&quot;open&quot;);
-const ytdl = require(&quot;ytdl-core&quot;);
-// init project
-const express = require(&quot;express&quot;);
-const app = express();
-let os = require('os')
-// we've started you off with Express,
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
-ytdl(&quot;https://www.youtube.com/watch?v=Yp-VBg3LFqY&quot;, { filter: format =&gt; format.container === 'mp4' }).pipe(fs.createWriteStream(&quot;video.mp4&quot;));
-var dir = os.userInfo().homedir + &quot;/videos/downloadYT&quot;;
+<div class="codehilite"><pre><span></span><span class="c1">// Add all the libraries</span>
+<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">open</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;open&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">ytdl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ytdl-core&quot;</span><span class="p">);</span>
+<span class="c1">// init project</span>
+<span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;express&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="kd">let</span> <span class="nx">os</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
+<span class="c1">// we&#39;ve started you off with Express,</span>
+<span class="c1">// but feel free to use whatever libs or frameworks you&#39;d like through `package.json`.</span>
+<span class="nx">ytdl</span><span class="p">(</span><span class="s2">&quot;https://www.youtube.com/watch?v=Yp-VBg3LFqY&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">filter</span><span class="o">:</span> <span class="nx">format</span> <span class="p">=&gt;</span> <span class="nx">format</span><span class="p">.</span><span class="nx">container</span> <span class="o">===</span> <span class="s1">&#39;mp4&#39;</span> <span class="p">}).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="s2">&quot;video.mp4&quot;</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">dir</span> <span class="o">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">().</span><span class="nx">homedir</span> <span class="o">+</span> <span class="s2">&quot;/videos/downloadYT&quot;</span><span class="p">;</span>
 
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir);
-  console.log(&quot;madedir&quot;)
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="nx">dir</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">dir</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;madedir&quot;</span><span class="p">)</span>
 
-}
-// http://expressjs.com/en/starter/basic-routing.html
-app.get(&quot;/:id&quot;, function(req, res) {
+<span class="p">}</span>
+<span class="c1">// http://expressjs.com/en/starter/basic-routing.html</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/:id&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
 
-  console.log(&quot;readytogo&quot;)
-  var stream = ytdl(&quot;https://www.youtube.com/watch?v=&quot; + req.params.id, {
-    filter: format =&gt; format.container === &quot;mp4&quot;
-  }).pipe(fs.createWriteStream(os.userInfo().homedir + &quot;/videos/downloadYT/&quot; + req.params.id+ &quot;.mp4&quot;));
-  stream.on('finish', function () {
-     open(
-       os.userInfo().homedir + &quot;/videos/downloadYT/&quot; + req.params.id + &quot;.mp4&quot;
-     );
-     res.send(os.userInfo().homedir + &quot;/videos/downloadYT/&quot; + req.params.id + &quot;.mp4&quot;);
-     console.log(&quot;done&quot;)
-  });
-});
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;readytogo&quot;</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">ytdl</span><span class="p">(</span><span class="s2">&quot;https://www.youtube.com/watch?v=&quot;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">filter</span><span class="o">:</span> <span class="nx">format</span> <span class="p">=&gt;</span> <span class="nx">format</span><span class="p">.</span><span class="nx">container</span> <span class="o">===</span> <span class="s2">&quot;mp4&quot;</span>
+  <span class="p">}).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">().</span><span class="nx">homedir</span> <span class="o">+</span> <span class="s2">&quot;/videos/downloadYT/&quot;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span><span class="p">));</span>
+  <span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;finish&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+     <span class="nx">open</span><span class="p">(</span>
+       <span class="nx">os</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">().</span><span class="nx">homedir</span> <span class="o">+</span> <span class="s2">&quot;/videos/downloadYT/&quot;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span>
+     <span class="p">);</span>
+     <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">().</span><span class="nx">homedir</span> <span class="o">+</span> <span class="s2">&quot;/videos/downloadYT/&quot;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span><span class="p">);</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;done&quot;</span><span class="p">)</span>
+  <span class="p">});</span>
+<span class="p">});</span>
 
-// listen for requests :)
-const listener = app.listen(18080, function() {
-  console.log(&quot;Your app is listening on port &quot; + listener.address().port);
-});
-listener.setTimeout(99999999999999999999);
-</code></pre>
+<span class="c1">// listen for requests :)</span>
+<span class="kr">const</span> <span class="nx">listener</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">18080</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Your app is listening on port &quot;</span> <span class="o">+</span> <span class="nx">listener</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">listener</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="mi">99999999999999999999</span><span class="p">);</span>
+</pre></div>
+
 
 <h3 id="creating-the-package">Creating the Package</h3>
 <p>We need to add a new package to achieve this called pkg. For a good tutorial on this, use <a href="https://dev.to/jochemstoel/bundle-your-node-app-to-a-single-executable-for-windows-linux-and-osx-2c89">this</a>. Run the following in the VS code Terminal.</p>
-<pre><code class="javascript">yarn global add pkg
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">yarn</span> <span class="nx">global</span> <span class="nx">add</span> <span class="nx">pkg</span>
+</pre></div>
+
 
 <p>This installed the JavaScript compiler onto your computer.  To compile an application, run the following in the Visual Studio Code terminal:</p>
-<pre><code class="javascript">pkg .
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">pkg</span> <span class="p">.</span>
+</pre></div>
+
 
 <p>Voila. We now have 3 files, one for each OS. Simply open the file like an app you wanted to install. This will start up the application ready to use in Part 2. </p>
 <h3 id="code-explainer">Code Explainer</h3>
-<pre><code class="javascript">const fs = require(&quot;fs&quot;);
-const open = require(&quot;open&quot;);
-const ytdl = require(&quot;ytdl-core&quot;);
-// init project
-const express = require(&quot;express&quot;);
-const app = express();
-let os = require('os')
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">open</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;open&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">ytdl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ytdl-core&quot;</span><span class="p">);</span>
+<span class="c1">// init project</span>
+<span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;express&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="kd">let</span> <span class="nx">os</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
+</pre></div>
+
 
 <p>This adds all the required NPM Packages to your app.</p>
-<pre><code class="javascript">ytdl(&quot;https://www.youtube.com/watch?v=Yp-VBg3LFqY&quot;, { filter: format =&gt; format.container === 'mp4' }).pipe(fs.createWriteStream(&quot;video.mp4&quot;));
-var dir = os.userInfo().homedir + &quot;/videos/downloadYT&quot;;
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">ytdl</span><span class="p">(</span><span class="s2">&quot;https://www.youtube.com/watch?v=Yp-VBg3LFqY&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">filter</span><span class="o">:</span> <span class="nx">format</span> <span class="p">=&gt;</span> <span class="nx">format</span><span class="p">.</span><span class="nx">container</span> <span class="o">===</span> <span class="s1">&#39;mp4&#39;</span> <span class="p">}).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="s2">&quot;video.mp4&quot;</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">dir</span> <span class="o">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">().</span><span class="nx">homedir</span> <span class="o">+</span> <span class="s2">&quot;/videos/downloadYT&quot;</span><span class="p">;</span>
+</pre></div>
+
 
 <p>This makes sure the app is working by downloading a sample video.</p>
-<pre><code class="javascript">if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir);
-  console.log(&quot;madedir&quot;)
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="nx">dir</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">dir</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;madedir&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
 
 <p>This makes sure the youtube download folder has been created. If it has not, it creates it.</p>
-<pre><code class="javascript">app.get(&quot;/:id&quot;, function(req, res) {
-  console.log(&quot;readytogo&quot;)
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/:id&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;readytogo&quot;</span><span class="p">)</span>
+</pre></div>
+
 
 <p>This triggers when part 2 tells the app download a video.</p>
-<pre><code class="javascript">var stream = ytdl(&quot;https://www.youtube.com/watch?v=&quot; + req.params.id, {
-    filter: format =&gt; format.container === &quot;mp4&quot;
-  }).pipe(fs.createWriteStream(os.userInfo().homedir + &quot;/videos/downloadYT/&quot; + req.params.id+ &quot;.mp4&quot;));
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">ytdl</span><span class="p">(</span><span class="s2">&quot;https://www.youtube.com/watch?v=&quot;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">filter</span><span class="o">:</span> <span class="nx">format</span> <span class="p">=&gt;</span> <span class="nx">format</span><span class="p">.</span><span class="nx">container</span> <span class="o">===</span> <span class="s2">&quot;mp4&quot;</span>
+  <span class="p">}).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">().</span><span class="nx">homedir</span> <span class="o">+</span> <span class="s2">&quot;/videos/downloadYT/&quot;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span><span class="p">));</span>
+</pre></div>
+
 
 <p>This downloads the youtube video.</p>
-<pre><code class="javascript">  stream.on('finish', function () {
-     open(
-       os.userInfo().homedir + &quot;/videos/downloadYT/&quot; + req.params.id + &quot;.mp4&quot;
-     );
-     res.send(os.userInfo().homedir + &quot;/videos/downloadYT/&quot; + req.params.id + &quot;.mp4&quot;);
-     console.log(&quot;done&quot;)
-  });
-});
-</code></pre>
+<div class="codehilite"><pre><span></span>  <span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;finish&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+     <span class="nx">open</span><span class="p">(</span>
+       <span class="nx">os</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">().</span><span class="nx">homedir</span> <span class="o">+</span> <span class="s2">&quot;/videos/downloadYT/&quot;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span>
+     <span class="p">);</span>
+     <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">().</span><span class="nx">homedir</span> <span class="o">+</span> <span class="s2">&quot;/videos/downloadYT/&quot;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span><span class="p">);</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;done&quot;</span><span class="p">)</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
 
 <p>This tells Part 2 that the download is done.</p>
-<pre><code class="javascript">const listener = app.listen(18080, function() {
-  console.log(&quot;Your app is listening on port &quot; + listener.address().port);
-});
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">listener</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">18080</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Your app is listening on port &quot;</span> <span class="o">+</span> <span class="nx">listener</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
 
 <p>This starts the app</p>
-<pre><code class="javascript">listener.setTimeout(99999999999999999999);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">listener</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="mi">99999999999999999999</span><span class="p">);</span>
+</pre></div>
+
 
 <p>This prevents the downloads from timing out.</p>
                 

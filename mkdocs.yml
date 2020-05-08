@@ -1,4 +1,5 @@
 site_name: StartJS
+edit_uri: '#root/blob/master '
 repo_url: https://github.com/steviebeenz/startjs
 theme:
   name: material

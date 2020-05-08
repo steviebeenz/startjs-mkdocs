@@ -1,1 +1,3 @@
 site_name: StartJS
+theme:
+  name: material

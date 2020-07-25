@@ -1,5 +1,5 @@
 site_name: StartJS
-edit_uri: '/blob/master'
+edit_uri: '/steviebeenz/startjs/blob/master'
 google_analytics: ['UA-123568344-3', 'startjs.gitbook.io']
 repo_url: https://github.com/steviebeenz/startjs
 theme:

@@ -1,6 +1,6 @@
 site_name: StartJS
 edit_uri: '/steviebeenz/startjs/blob/master'
-google_analytics: ['UA-123568344-3', 'startjs.gitbook.io']
+google_analytics: ['UA-123568344-3', 'startjs.js.org']
 repo_url: https://github.com/steviebeenz/startjs
 theme:
   name: material
